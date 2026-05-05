@@ -17,15 +17,85 @@
   :root {
     --background: #ffffff;
     --foreground: #0f172a; /* Slate-900 */
+    --primary: #1e40af;
+    --secondary: #dc2626;
+    --accent: #3b82f6;
+  }
+
+  .dark {
+    --background: #020617; /* Slate-950 */
+    --foreground: #f8fafc; /* Slate-50 */
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-brand-red/20;
+    @apply bg-background text-foreground antialiased selection:bg-brand-red/20 selection:text-brand-red;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800/20 shadow-xl;
+  }
+  
+  .glass-dark {
+    @apply backdrop-blur-xl bg-slate-900/80 border border-slate-800/50 shadow-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-blue via-brand-red to-brand-blue bg-[length:200%_auto] animate-gradient-x;
+  }
+}
+
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-800 rounded-full border-2 border-solid border-slate-100 dark:border-slate-900 hover:bg-brand-red/50 transition-colors;
+}
+
+/* Custom Cursor Utilities */
+.cursor-dot {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-brand-red);
+  border-radius: 50%;
+  z-index: 9999;
+  transition: transform 0.1s ease-out;
+}
+
+.cursor-outline {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-brand-red);
+  opacity: 0.5;
+  border-radius: 50%;
+  z-index: 9998;
+  transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
 }
 
 
