@@ -18,66 +18,85 @@ const fadeIn = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans selection:bg-brand-red/10 relative overflow-x-hidden">
+      {/* Background Decor */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-brand-blue/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[50%] h-[50%] bg-brand-red/5 blur-[120px] rounded-full" />
+      </div>
+
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 px-6 py-4 md:px-12 lg:px-24 flex items-center justify-between backdrop-blur-md bg-white/80 border-b border-slate-200">
-        <Link href="/" className="flex items-center space-x-2">
-          <Shield className="w-8 h-8 text-brand-red" />
-          <span className="text-xl font-extrabold tracking-tight text-brand-blue uppercase">Shram Jagaran</span>
-        </Link>
-        <Link href="/" className="text-sm font-bold text-slate-600 hover:text-brand-red transition-colors flex items-center space-x-2">
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Home</span>
-        </Link>
+      <header className="fixed top-0 w-full z-50 glass border-b border-slate-200/50 dark:border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-3 group">
+            <Shield className="w-8 h-8 text-brand-red group-hover:rotate-12 transition-transform" />
+            <span className="text-xl font-black tracking-tighter text-brand-blue dark:text-slate-100 uppercase">Shram Jagaran</span>
+          </Link>
+          <Link href="/" className="text-xs font-black text-slate-500 uppercase tracking-widest hover:text-brand-red transition-all flex items-center space-x-2 group">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <span>Home</span>
+          </Link>
+        </div>
       </header>
 
-      <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
-        <motion.div initial="hidden" animate="visible" custom={0} variants={fadeIn} className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-black text-brand-blue mb-6 tracking-tighter uppercase">
-            Our Legacy of <span className="text-brand-red">Solidarity</span>
+      <main className="relative z-10 pt-40 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+        <motion.div initial="hidden" animate="visible" custom={0} variants={fadeIn} className="mb-24">
+          <h1 className="text-6xl md:text-8xl font-black text-brand-blue dark:text-slate-100 mb-8 tracking-tighter uppercase leading-[0.9]">
+            Our Legacy of <br />
+            <span className="text-brand-red text-gradient">Solidarity.</span>
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl font-medium leading-relaxed">
+          <p className="text-xl text-slate-500 max-w-3xl font-medium leading-relaxed">
             Shram Jagaran Network was founded in 2010 with a singular vision: to create a unified voice for the marginalized labor force and ensure institutional accountability at every level.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
-          <motion.div initial="hidden" animate="visible" custom={1} variants={fadeIn} className="p-12 bg-slate-50 rounded-[3rem] border-2 border-slate-100">
-            <Target className="w-12 h-12 text-brand-red mb-6" />
-            <h2 className="text-3xl font-black text-brand-blue mb-4 uppercase tracking-tight">Our Mission</h2>
-            <p className="text-slate-600 font-medium leading-relaxed">
-              To empower workers through education, collective bargaining, and legal protection. We strive for a society where labor is not just a commodity but a respected pillar of national progress.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
+          <motion.div initial="hidden" animate="visible" custom={1} variants={fadeIn} className="p-12 glass rounded-[3.5rem] border-slate-200/50 dark:border-slate-800/50 shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 blur-3xl rounded-full transition-all group-hover:scale-150" />
+            <Target className="w-16 h-16 text-brand-red mb-8" />
+            <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4">Core Objective</h2>
+            <h3 className="text-4xl font-black text-brand-blue dark:text-slate-100 mb-6 uppercase tracking-tighter">Our Mission</h3>
+            <p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed text-lg">
+              To empower workers through education, collective bargaining, and legal protection. We strive for a society where labor is a respected pillar of national progress.
             </p>
           </motion.div>
 
-          <motion.div initial="hidden" animate="visible" custom={2} variants={fadeIn} className="p-12 bg-brand-blue text-white rounded-[3rem]">
-            <History className="w-12 h-12 text-brand-red mb-6" />
-            <h2 className="text-3xl font-black mb-4 uppercase tracking-tight text-white">Our History</h2>
-            <p className="text-white/80 font-medium leading-relaxed">
-              From a small gathering of activists to a national federation of 50,000+ members, our journey has been defined by resilience. We have successfully negotiated over 1,200 collective agreements.
+          <motion.div initial="hidden" animate="visible" custom={2} variants={fadeIn} className="p-12 bg-brand-blue text-white rounded-[3.5rem] shadow-2xl shadow-brand-blue/20 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full transition-all group-hover:scale-150" />
+            <History className="w-16 h-16 text-brand-red mb-8" />
+            <h2 className="text-[10px] font-black text-blue-300 uppercase tracking-[0.3em] mb-4">Journey So Far</h2>
+            <h3 className="text-4xl font-black mb-6 uppercase tracking-tighter text-white">Our History</h3>
+            <p className="text-white/70 font-medium leading-relaxed text-lg">
+              From a small gathering to a national federation of 50,000+ members, our journey has been defined by resilience and over 1,200 collective agreements.
             </p>
           </motion.div>
         </div>
 
-        <motion.div initial="hidden" animate="visible" custom={3} variants={fadeIn} className="mb-24">
-          <h2 className="text-4xl font-black text-brand-blue mb-12 uppercase text-center underline decoration-brand-red decoration-8 underline-offset-8">Core Values</h2>
+        <motion.div initial="hidden" animate="visible" custom={3} variants={fadeIn} className="mb-32">
+          <h2 className="text-sm font-black text-brand-red mb-4 uppercase tracking-[0.4em] text-center">Unwavering Foundations</h2>
+          <h3 className="text-4xl md:text-6xl font-black text-brand-blue dark:text-slate-100 mb-16 uppercase text-center tracking-tighter">Core Values</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
               { title: "Transparency", desc: "Digital tracking of every union decision and fund allocation." },
               { title: "Inclusivity", desc: "Representation for all genders, ages, and skill levels." },
-              { title: "Incorruptibility", desc: "A strict ethical code backed by independent annual audits." }
+              { title: "Integrity", desc: "A strict ethical code backed by independent annual audits." }
             ].map((value, i) => (
-              <div key={i} className="text-center p-8 bg-white border-2 border-slate-50 shadow-xl rounded-3xl">
-                <h3 className="text-xl font-black text-brand-red mb-3 uppercase">{value.title}</h3>
-                <p className="text-slate-500 font-medium">{value.desc}</p>
-              </div>
+              <motion.div 
+                key={i} 
+                whileHover={{ y: -10 }}
+                className="text-center p-10 glass border-slate-100 dark:border-slate-800/50 rounded-[2.5rem] shadow-xl"
+              >
+                <div className="w-12 h-1 bg-brand-red mx-auto mb-8 rounded-full" />
+                <h3 className="text-xl font-black text-brand-blue dark:text-slate-100 mb-4 uppercase tracking-tighter">{value.title}</h3>
+                <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{value.desc}</p>
+              </motion.div>
             ))}
           </div>
         </motion.div>
       </main>
 
-      <footer className="py-12 border-t border-slate-100 text-center text-slate-400 text-xs font-bold uppercase tracking-widest bg-slate-50">
-        <p>© 2026 Shram Jagaran Network. All Rights Reserved.</p>
+      <footer className="py-16 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] bg-white dark:bg-slate-950">
+        <p>© 2026 Shram Jagaran Network. Solidarity Forever.</p>
       </footer>
     </div>
   );

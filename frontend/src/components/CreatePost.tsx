@@ -29,35 +29,39 @@ export default function CreatePost({ onUpdate }: { onUpdate: () => void }) {
     <motion.div 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm mb-8"
+      className="glass dark:bg-slate-900/40 border-slate-200/50 dark:border-slate-800/50 rounded-[2.5rem] p-8 mb-12 shadow-2xl relative overflow-hidden group"
     >
-      <div className="flex items-center space-x-2 mb-4 text-indigo-500">
-        <PenTool className="w-5 h-5" />
-        <h2 className="font-semibold">Create a new post</h2>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/5 blur-3xl rounded-full" />
+      
+      <div className="flex items-center space-x-3 mb-6 text-brand-blue dark:text-slate-100">
+        <div className="p-2 bg-brand-blue/10 dark:bg-white/5 rounded-xl">
+          <PenTool className="w-5 h-5 text-brand-red" />
+        </div>
+        <h2 className="text-xs font-black uppercase tracking-[0.3em]">New Official Update</h2>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title (e.g. Weekly Meeting Notes)"
-          className="w-full bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+          className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm font-medium focus:border-brand-blue dark:focus:border-brand-red outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
         />
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="What's on your mind?"
-          rows={3}
-          className="w-full bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all resize-none text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+          placeholder="What's the update?"
+          rows={4}
+          className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent rounded-2xl px-6 py-4 text-sm font-medium focus:border-brand-blue dark:focus:border-brand-red outline-none transition-all resize-none text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
         />
-        <div className="flex justify-end">
+        <div className="flex justify-end pt-2">
           <button 
             type="submit"
             disabled={!title.trim() || !content.trim() || isSubmitting}
-            className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-10 py-4 bg-brand-blue text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-brand-blue/90 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-brand-blue/20 flex items-center space-x-3"
           >
-            {isSubmitting ? 'Posting...' : 'Post'}
+            <span>{isSubmitting ? 'Publishing...' : 'Publish Update'}</span>
           </button>
         </div>
       </form>

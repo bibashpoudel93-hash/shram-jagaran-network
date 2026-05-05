@@ -49,68 +49,29 @@ export default function LandingPage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [showAlignmentControls, setShowAlignmentControls] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 50);
     };
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <div className={clsx(
-      "min-h-screen font-sans selection:bg-brand-red/10 overflow-x-hidden transition-colors duration-500 cursor-none",
+      "min-h-screen font-sans selection:bg-brand-red/10 overflow-x-hidden transition-colors duration-500",
       isDarkMode ? "dark bg-slate-950 text-slate-100" : "bg-white text-slate-900"
     )}>
-      {/* Custom Cursor */}
-      <motion.div 
-        className="cursor-dot hidden md:block"
-        animate={{ 
-          x: mousePosition.x - 4, 
-          y: mousePosition.y - 4,
-          scale: isHovering ? 1.5 : 1
-        }}
-      />
-      <motion.div 
-        className="cursor-outline hidden md:block"
-        animate={{ 
-          x: mousePosition.x - 20, 
-          y: mousePosition.y - 20,
-          scale: isHovering ? 1.5 : 1,
-          opacity: isHovering ? 0.8 : 0.4
-        }}
-        transition={{ type: "spring", damping: 20, stiffness: 250, mass: 0.5 }}
-      />
-
-      {/* Scroll Progress Bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-brand-red z-[100] origin-left"
-        style={{ scaleX: useScrollProgress() }}
-      />
-
       {/* Dynamic Background with Floating Shapes */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-brand-blue/5 blur-[150px]" />
         <div className="absolute top-[40%] -right-[10%] w-[50%] h-[50%] rounded-full bg-brand-red/5 blur-[120px]" />
         
-        {/* Animated Floating Shapes */}
         <motion.div 
           animate={{ 
             y: [0, -20, 0],
             rotate: [0, 10, 0],
-            scale: [1, 1.1, 1]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           className="absolute top-[15%] right-[20%] w-24 h-24 border border-brand-blue/10 rounded-3xl rotate-12"
@@ -151,8 +112,6 @@ export default function LandingPage() {
           )}>
             <motion.div 
               initial="hidden" animate="visible" custom={0} variants={fadeIn}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2 cursor-pointer group"
             >
@@ -179,8 +138,6 @@ export default function LandingPage() {
                 <Link 
                   key={item.name}
                   href={item.href} 
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
                   className="relative group hover:text-brand-red transition-colors flex flex-col items-center gap-1"
                 >
                   <span className={clsx("transition-transform group-hover:translate-y-[-2px]", (!hasScrolled || navPosition === 'top' || navPosition === 'bottom') && "block")}>
@@ -204,8 +161,6 @@ export default function LandingPage() {
               )}>
                 <button
                   onClick={() => setIsDarkMode(!isDarkMode)}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
                   className={clsx(
                     "p-2 rounded-lg transition-all",
                     isDarkMode ? "text-yellow-400 hover:bg-slate-800" : "text-slate-500 hover:text-brand-blue hover:bg-white/50"
@@ -217,8 +172,6 @@ export default function LandingPage() {
                 {hasScrolled && (
                   <button
                     onClick={() => setShowAlignmentControls(!showAlignmentControls)}
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
                     className={clsx(
                       "p-2 rounded-lg transition-all",
                       showAlignmentControls ? "bg-brand-red text-white" : "text-slate-500 hover:text-brand-blue hover:bg-white/50"
@@ -232,8 +185,6 @@ export default function LandingPage() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link 
                   href="/hub" 
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
                   className={clsx(
                     "bg-brand-blue text-white text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-brand-blue/90 transition-all shadow-xl shadow-brand-blue/20 flex items-center justify-center",
                     (hasScrolled && (navPosition === 'left' || navPosition === 'right')) ? "w-12 h-12" : "px-6 py-3"
@@ -295,8 +246,6 @@ export default function LandingPage() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 min-w-[200px]">
                   <Link 
                     href="/hub" 
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
                     className="w-full px-8 py-5 bg-brand-red text-white font-black uppercase tracking-widest text-xs rounded-2xl transition-all hover:bg-brand-red/90 shadow-2xl shadow-brand-red/20 flex items-center justify-center space-x-3 group"
                   >
                     <span>Join Now</span>
@@ -306,8 +255,6 @@ export default function LandingPage() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 min-w-[200px]">
                   <Link 
                     href="/about" 
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
                     className={clsx(
                       "w-full px-8 py-5 font-black uppercase tracking-widest text-xs rounded-2xl transition-all flex items-center justify-center border-2",
                       isDarkMode ? "bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800" : "bg-white border-brand-blue/10 text-brand-blue hover:bg-brand-blue/5"
@@ -397,23 +344,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Back to Top */}
-        <AnimatePresence>
-          {hasScrolled && (
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              onClick={scrollToTop}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              className="fixed bottom-10 right-10 z-[60] w-14 h-14 bg-brand-red text-white rounded-2xl shadow-2xl shadow-brand-red/40 flex items-center justify-center hover:bg-brand-blue transition-all"
-            >
-              <ChevronUp className="w-6 h-6" />
-            </motion.button>
-          )}
-        </AnimatePresence>
-
         {/* Footer */}
         <footer className={clsx(
           "pt-32 pb-12 px-6 md:px-12 lg:px-24 border-t",
@@ -473,21 +403,5 @@ export default function LandingPage() {
       </div>
     </div>
   );
-}
-
-function useScrollProgress() {
-  const [completion, setCompletion] = useState(0);
-  useEffect(() => {
-    const updateScrollCompletion = () => {
-      const currentProgress = window.scrollY;
-      const scrollHeight = document.body.scrollHeight - window.innerHeight;
-      if (scrollHeight) {
-        setCompletion(Number((currentProgress / scrollHeight).toFixed(2)));
-      }
-    };
-    window.addEventListener("scroll", updateScrollCompletion);
-    return () => window.removeEventListener("scroll", updateScrollCompletion);
-  }, []);
-  return completion;
 }
 
